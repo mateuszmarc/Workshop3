@@ -97,8 +97,17 @@
                                 </c:when>
                                 <c:otherwise>
                                     <div class="alert alert-success" role="alert">
-                                        <strong>Użytkownik dodany pomyślnie!</strong>
+                                        <strong>Sukces!</strong> Użytkownik dodany pomyślnie
+                                        <div>
+                                            <a href="/users/list" class="btn btn-success">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                                <span class="text">Zobacz listę użytkowników</span>
+                                            </a>
+                                        </div>
                                     </div>
+
                                 </c:otherwise>
 
                             </c:choose>
