@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import pl.coderslab.dbmanagement.DbUtil;
+import pl.coderslab.service.InputValidator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +15,9 @@ import java.util.List;
 
 
 public class UserDao {
+    public static final String EMAIL_VALIDATION_REGEX = "[_a-zA-z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}";
+    public static final String PASSWORD_VALIDATION_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+    public static final String USERNAME_VALIDATION_REGEX = "^[a-zA-Z0-9](_(?!(\\.|_))|\\.(?!(_|\\.))|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$";
     public static final Logger log = LogManager.getLogger(UserDao.class);
     public static final String CREATE_USER_QUERY = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
     public static final String UPDATE_USER_QUERY = "UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?";
@@ -25,9 +29,24 @@ public class UserDao {
         String username = user.getUsername();
         String email = user.getEmail();
         String plainPassword = user.getPassword();
+        String us = InputValidator.validateString(username, USERNAME_VALIDATION_REGEX) ? "okej" : "bledny";
+        log.info("username " + username + " is " + us);
 
-        if (username == null || email == null || plainPassword == null) {
-            log.info("Incorrect values. User data fields must not be null values");
+        String em = InputValidator.validateString(email, EMAIL_VALIDATION_REGEX) ? "okej" : "bledny";
+        log.info("email " + email + " is " + em);
+
+        String pass = InputValidator.validateString(plainPassword, PASSWORD_VALIDATION_REGEX) ? "okej" : "bledny";
+        log.info("password " + plainPassword + " is " + pass);
+
+        if (
+                username == null
+                        || !InputValidator.validateString(username, USERNAME_VALIDATION_REGEX)
+                        || email == null
+                        || !InputValidator.validateString(email, EMAIL_VALIDATION_REGEX)
+                        || plainPassword == null
+                        || !InputValidator.validateString(plainPassword, PASSWORD_VALIDATION_REGEX)
+        ) {
+            log.info("Incorrect values entered");
             return null;
         }
 
