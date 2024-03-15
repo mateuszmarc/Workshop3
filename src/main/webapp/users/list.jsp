@@ -16,6 +16,8 @@
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- Option 1: Include in HTML -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
@@ -96,20 +98,20 @@
                                             <thead>
                                             <tr role="row">
                                                 <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable"
-                                                    rowspan="1" colspan="1" style="width: 145px;" aria-sort="ascending"
+                                                    rowspan="1" colspan="1" style="width: 60px;" aria-sort="ascending"
                                                     aria-label="Name: activate to sort column descending">Id
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                    colspan="1" style="width: 225px;"
+                                                    colspan="1" style="width: 100px;"
                                                     aria-label="Position: activate to sort column ascending">Nazwa
                                                     użytkownika
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                    colspan="1" style="width: 102px;"
+                                                    colspan="1" style="width: 120px;"
                                                     aria-label="Office: activate to sort column ascending">Email
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                    colspan="1" style="width: 86px;"
+                                                    colspan="1" style="width: 180px;"
                                                     aria-label="Salary: activate to sort column ascending">Akcja
                                                 </th>
                                             </tr>
@@ -128,6 +130,39 @@
                                                     <td>${user.id}</td>
                                                     <td>${user.username}</td>
                                                     <td>${user.email}</td>
+                                                    <td class="row-cols">
+                                                        <div class="d-flex gap-2">
+                                                            <a class="mr-3" href="${pageContext.request.contextPath}/users/show?id=${user.id}">
+                                                                <button type="button" class="btn btn-outline-primary btn-sm">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                         height="16" fill="currentColor"
+                                                                         class="bi bi-info-square" viewBox="0 0 16 16">
+                                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"></path>
+                                                                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path>
+                                                                    </svg>
+                                                                    Pokaż
+                                                                </button>
+                                                            </a>
+                                                            <a class="mr-3" href="${pageContext.request.contextPath}/users/edit?id=${user.id}">
+                                                                <button type="button" class="btn btn-outline-primary btn-sm">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                                                        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"></path>
+                                                                    </svg>
+                                                                    Edytuj
+                                                                </button>
+                                                            </a>
+                                                            <a class="mr-3" href="${pageContext.request.contextPath}/users/delete?id=${user.id}">
+                                                                <button type="button" class="btn btn-outline-primary btn-sm">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                         height="16" fill="currentColor"
+                                                                         class="bi bi-trash3" viewBox="0 0 16 16">
+                                                                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"></path>
+                                                                    </svg>
+                                                                    Usuń
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             </c:forEach>
 
@@ -257,49 +292,9 @@
     <!-- End of Content Wrapper -->
 
 </div>
-<!-- End of Page Wrapper -->
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Bootstrap core JavaScript-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="js/sb-admin-2.min.js"></script>
-
-<!-- Page level plugins -->
-<script src="vendor/chart.js/Chart.min.js"></script>
-
-<!-- Page level custom scripts -->
-<script src="js/demo/chart-area-demo.js"></script>
-<script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 
