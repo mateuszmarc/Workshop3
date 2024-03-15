@@ -24,7 +24,7 @@ public class Create extends HttpServlet {
         String validInput = req.getParameter("input");
         if ("invalid".equals(validInput)) {
             req.setAttribute("isUserAdded", false);
-        } else {
+        } else if ("valid".equals(validInput)) {
             req.setAttribute("isUserAdded", true);
         }
         req.setAttribute("usernameRequirement", USERNAME_VALIDATION_INFORMATION);
