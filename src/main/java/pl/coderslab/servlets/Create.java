@@ -1,4 +1,4 @@
-package pl.coderslab.create;
+package pl.coderslab.servlets;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
