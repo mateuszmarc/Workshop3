@@ -24,6 +24,8 @@ public class UserDao {
     public static final String DELETE_USER_QUERY = "DELETE FROM users WHERE id = ?";
     public static final String READ_USER_QUERY = "SELECT * FROM users WHERE id = ?";
     public static final String READ_ALL_USERS = "SELECT * FROM users";
+    public static final String COUNT_ALL_USERS = "SELECT COUNT(*) FROM users";
+    public static final String RETRIEVE_RECORD_WITH_OFFSET_AND_LIMIT = "SELECT * from users LIMIT ? OFFSET ?";
 
     public User create(User user) {
         String username = user.getUsername();
@@ -157,6 +159,32 @@ public class UserDao {
             User user = new User(username, email, password);
             user.setId(id);
             retrievedUsers.add(user);
+        }
+        return retrievedUsers;
+    }
+
+    public int countAll() {
+        try (Connection connection = DbUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(COUNT_ALL_USERS)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            log.info(e.getMessage());
+        }
+        return 0;
+    }
+
+    public List<User> findUsersBasedOnOffsetAndLimit(int offset, int limit) {
+        List<User> retrievedUsers = new ArrayList<>();
+        try (Connection connection = DbUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(RETRIEVE_RECORD_WITH_OFFSET_AND_LIMIT)) {
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            retrievedUsers = createUsersFromResultSet(resultSet);
+            return retrievedUsers;
+        } catch (SQLException e) {
+            log.info(e.getMessage());
         }
         return retrievedUsers;
     }

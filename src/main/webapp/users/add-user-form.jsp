@@ -95,7 +95,7 @@
                                         email jest już przypisany do innego użytkownika.
                                     </div>
                                 </c:when>
-                                <c:otherwise>
+                                <c:when test="${isUserAdded == true}">
                                     <div class="alert alert-success" role="alert">
                                         <strong>Sukces!</strong> Użytkownik dodany pomyślnie
                                         <div>
@@ -107,9 +107,7 @@
                                             </a>
                                         </div>
                                     </div>
-
-                                </c:otherwise>
-
+                                </c:when>
                             </c:choose>
 
                             <div class="form-group">
