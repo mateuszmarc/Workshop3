@@ -82,7 +82,7 @@
                 <div class="card shadow mb-4">
                      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                             <h6 class="m-0 font-weight-bold text-primary">Edytuj użytkownika</h6>
-                        </div>
+                     </div>
                         <div class="card-body">
                             <c:choose>
                                 <c:when test="${isUserUpdated == false}">
@@ -144,18 +144,12 @@
                                         ${passwordRequirement}
                                 </div>
                             </div>
-
                             <button class="btn btn-primary" type="submit">Zapisz</button>
+                            </form>
                         </div>
-                    </form>
                     </c:otherwise>
                     </c:choose>
                 </div>
-
-                <div class="row">
-                </div>
-
-
             </div>
             <!-- /.container-fluid -->
 
