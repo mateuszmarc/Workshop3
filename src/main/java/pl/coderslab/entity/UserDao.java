@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import pl.coderslab.dbmanagement.DbUtil;
+import pl.coderslab.service.InputValidator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,20 +15,31 @@ import java.util.List;
 
 
 public class UserDao {
+    public static final String EMAIL_VALIDATION_REGEX = "[_a-zA-z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}";
+    public static final String PASSWORD_VALIDATION_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+    public static final String USERNAME_VALIDATION_REGEX = "^[a-zA-Z0-9](_(?!(\\.|_))|\\.(?!(_|\\.))|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$";
     public static final Logger log = LogManager.getLogger(UserDao.class);
     public static final String CREATE_USER_QUERY = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
     public static final String UPDATE_USER_QUERY = "UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?";
     public static final String DELETE_USER_QUERY = "DELETE FROM users WHERE id = ?";
     public static final String READ_USER_QUERY = "SELECT * FROM users WHERE id = ?";
     public static final String READ_ALL_USERS = "SELECT * FROM users";
+    public static final String COUNT_ALL_USERS = "SELECT COUNT(*) FROM users";
+    public static final String RETRIEVE_RECORD_WITH_OFFSET_AND_LIMIT = "SELECT * from users LIMIT ? OFFSET ?";
 
     public User create(User user) {
         String username = user.getUsername();
         String email = user.getEmail();
         String plainPassword = user.getPassword();
-
-        if (username == null || email == null || plainPassword == null) {
-            log.info("Incorrect values. User data fields must not be null values");
+        if (
+                username == null
+                        || !InputValidator.validateString(username, USERNAME_VALIDATION_REGEX)
+                        || email == null
+                        || !InputValidator.validateString(email, EMAIL_VALIDATION_REGEX)
+                        || plainPassword == null
+                        || !InputValidator.validateString(plainPassword, PASSWORD_VALIDATION_REGEX)
+        ) {
+            log.info("Incorrect values entered");
             return null;
         }
 
@@ -70,18 +82,24 @@ public class UserDao {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
-    public void update(User user) {
+    public boolean update(User user) {
         int id = user.getId();
         String username = user.getUsername();
         String email = user.getEmail();
         String password = user.getPassword();
         int updatedRows = 0;
+        boolean isRowUpdated = false;
 
-        if (username == null || username.isBlank() || email == null || email.isBlank() || password == null || password.isBlank()) {
+        if (
+                username == null
+                        || !InputValidator.validateString(username, USERNAME_VALIDATION_REGEX)
+                        || email == null
+                        || !InputValidator.validateString(email, EMAIL_VALIDATION_REGEX)
+                        || password == null
+                        || !InputValidator.validateString(password, PASSWORD_VALIDATION_REGEX)) {
             log.info("Invalid data provided for update");
             log.info(updatedRows + " rows updated");
-
-            return;
+            return false;
         }
 
         try (Connection connection = DbUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_QUERY)) {
@@ -95,12 +113,14 @@ public class UserDao {
 
             if (updatedRows == 0) {
                 log.info("There was no record to update that has id = " + id);
+            } else {
+                log.info(updatedRows + " rows updated");
+                isRowUpdated = true;
             }
-
-            log.info(updatedRows + " rows updated");
         } catch (SQLException e) {
             log.info(e.getMessage());
         }
+        return isRowUpdated;
     }
 
     public void delete(int userId) {
@@ -138,6 +158,32 @@ public class UserDao {
             User user = new User(username, email, password);
             user.setId(id);
             retrievedUsers.add(user);
+        }
+        return retrievedUsers;
+    }
+
+    public int countAll() {
+        try (Connection connection = DbUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(COUNT_ALL_USERS)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            log.info(e.getMessage());
+        }
+        return 0;
+    }
+
+    public List<User> findUsersBasedOnOffsetAndLimit(int offset, int limit) {
+        List<User> retrievedUsers = new ArrayList<>();
+        try (Connection connection = DbUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(RETRIEVE_RECORD_WITH_OFFSET_AND_LIMIT)) {
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            retrievedUsers = createUsersFromResultSet(resultSet);
+            return retrievedUsers;
+        } catch (SQLException e) {
+            log.info(e.getMessage());
         }
         return retrievedUsers;
     }
