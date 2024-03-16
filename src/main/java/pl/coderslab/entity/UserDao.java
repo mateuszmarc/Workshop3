@@ -31,15 +31,6 @@ public class UserDao {
         String username = user.getUsername();
         String email = user.getEmail();
         String plainPassword = user.getPassword();
-        String us = InputValidator.validateString(username, USERNAME_VALIDATION_REGEX) ? "okej" : "bledny";
-        log.info("username " + username + " is " + us);
-
-        String em = InputValidator.validateString(email, EMAIL_VALIDATION_REGEX) ? "okej" : "bledny";
-        log.info("email " + email + " is " + em);
-
-        String pass = InputValidator.validateString(plainPassword, PASSWORD_VALIDATION_REGEX) ? "okej" : "bledny";
-        log.info("password " + plainPassword + " is " + pass);
-
         if (
                 username == null
                         || !InputValidator.validateString(username, USERNAME_VALIDATION_REGEX)
@@ -91,18 +82,24 @@ public class UserDao {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
-    public void update(User user) {
+    public boolean update(User user) {
         int id = user.getId();
         String username = user.getUsername();
         String email = user.getEmail();
         String password = user.getPassword();
         int updatedRows = 0;
+        boolean isRowUpdated = false;
 
-        if (username == null || username.isBlank() || email == null || email.isBlank() || password == null || password.isBlank()) {
+        if (
+                username == null
+                        || !InputValidator.validateString(username, USERNAME_VALIDATION_REGEX)
+                        || email == null
+                        || !InputValidator.validateString(email, EMAIL_VALIDATION_REGEX)
+                        || password == null
+                        || !InputValidator.validateString(password, PASSWORD_VALIDATION_REGEX)) {
             log.info("Invalid data provided for update");
             log.info(updatedRows + " rows updated");
-
-            return;
+            return false;
         }
 
         try (Connection connection = DbUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_QUERY)) {
@@ -116,12 +113,14 @@ public class UserDao {
 
             if (updatedRows == 0) {
                 log.info("There was no record to update that has id = " + id);
+            } else {
+                log.info(updatedRows + " rows updated");
+                isRowUpdated = true;
             }
-
-            log.info(updatedRows + " rows updated");
         } catch (SQLException e) {
             log.info(e.getMessage());
         }
+        return isRowUpdated;
     }
 
     public void delete(int userId) {

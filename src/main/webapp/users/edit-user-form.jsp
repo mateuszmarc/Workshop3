@@ -79,27 +79,24 @@
                        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                             class="fas fa-download fa-sm text-white-50"></i> Lista użytkowników</a>
                 </div>
-
-                <!-- Content Row -->
                 <div class="card shadow mb-4">
-
-                    <form method="post" action="${pageContext.request.contextPath}/users/add">
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Dodaj użytkownika</h6>
-                        </div>
+                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Edytuj użytkownika</h6>
+                     </div>
                         <div class="card-body">
                             <c:choose>
-                                <c:when test="${isUserAdded == false}">
+                                <c:when test="${isUserUpdated == false}">
                                     <div class="alert alert-warning" role="alert">
                                         <strong>Niepowodzenie!</strong> Wpisane dane nie spełniają wymagań lub podany
                                         email jest już przypisany do innego użytkownika.
                                     </div>
                                 </c:when>
-                                <c:when test="${isUserAdded == true}">
+                                <c:when test="${isUserUpdated == true}">
                                     <div class="alert alert-success" role="alert">
-                                        <strong>Sukces!</strong> Użytkownik dodany pomyślnie
+                                        <strong>Sukces!</strong> Dane użytkownika edytowanie pomyślnie
                                         <div>
-                                            <a href="/users/list" class="btn btn-success">
+                                            <a href="${pageContext.request.contextPath}/users/list"
+                                               class="btn btn-success">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-check"></i>
                                         </span>
@@ -109,39 +106,50 @@
                                     </div>
                                 </c:when>
                             </c:choose>
-
+                            <c:choose>
+                            <c:when test="${user == null}">
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>Niepowadzenie!</strong> Nie ma użytkownika z podanym id.
+                                    <div>
+                                        <a href="${pageContext.request.contextPath}/users/list" class="btn btn-warning">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                            <span class="text">Wróć do listy użytkowników</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                            <form method="post" action="${pageContext.request.contextPath}/users/edit?id=${user.id}">
                             <div class="form-group">
                                 <label for="username">Nazwa</label><br>
-                                <input id="username" class="form-control form-control-user " type="text" name="username"
-                                       required>
+                                <input id="username" class="form-control form-control-user " type="text" name="newUsername"
+                                       required value="${user.username}">
                                 <div>
-                                    ${usernameRequirement}
+                                        ${usernameRequirement}
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label><br>
-                                <input id="email" class="form-control form-control-user" type="text" name="email"
-                                       required>
+                                <input id="email" class="form-control form-control-user" type="text" name="newEmail"
+                                       required value="${user.email}">
                             </div>
                             <div class="form-group">
                                 <label for="password">Hasło</label><br>
-                                <input id="password" class="form-control form-control-user" type="password"
+                                <input id="password" class="form-control form-control-user" type="Password"
                                        id="password"
-                                       name="password" required>
+                                       name="newPassword" required>
                                 <div>
-                                    ${passwordRequirement}
+                                        ${passwordRequirement}
                                 </div>
                             </div>
-
                             <button class="btn btn-primary" type="submit">Zapisz</button>
+                            </form>
                         </div>
-                    </form>
+                    </c:otherwise>
+                    </c:choose>
                 </div>
-
-                <div class="row">
-                </div>
-
-
             </div>
             <!-- /.container-fluid -->
 

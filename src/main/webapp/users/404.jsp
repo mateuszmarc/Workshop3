@@ -81,66 +81,17 @@
                 </div>
 
                 <!-- Content Row -->
-                <div class="card shadow mb-4">
 
-                    <form method="post" action="${pageContext.request.contextPath}/users/add">
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Dodaj użytkownika</h6>
-                        </div>
-                        <div class="card-body">
-                            <c:choose>
-                                <c:when test="${isUserAdded == false}">
-                                    <div class="alert alert-warning" role="alert">
-                                        <strong>Niepowodzenie!</strong> Wpisane dane nie spełniają wymagań lub podany
-                                        email jest już przypisany do innego użytkownika.
-                                    </div>
-                                </c:when>
-                                <c:when test="${isUserAdded == true}">
-                                    <div class="alert alert-success" role="alert">
-                                        <strong>Sukces!</strong> Użytkownik dodany pomyślnie
-                                        <div>
-                                            <a href="/users/list" class="btn btn-success">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-check"></i>
-                                        </span>
-                                                <span class="text">Zobacz listę użytkowników</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </c:when>
-                            </c:choose>
+            </div>
+            <div class="container-fluid">
 
-                            <div class="form-group">
-                                <label for="username">Nazwa</label><br>
-                                <input id="username" class="form-control form-control-user " type="text" name="username"
-                                       required>
-                                <div>
-                                    ${usernameRequirement}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label><br>
-                                <input id="email" class="form-control form-control-user" type="text" name="email"
-                                       required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Hasło</label><br>
-                                <input id="password" class="form-control form-control-user" type="password"
-                                       id="password"
-                                       name="password" required>
-                                <div>
-                                    ${passwordRequirement}
-                                </div>
-                            </div>
-
-                            <button class="btn btn-primary" type="submit">Zapisz</button>
-                        </div>
-                    </form>
+                <!-- 404 Error Text -->
+                <div class="text-center">
+                    <div class="error mx-auto" data-text="404">404</div>
+                    <p class="lead text-gray-800 mb-5">Page Not Found</p>
+                    <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
+                    <a href="${pageContext.request.contextPath}/users/list">← Back to Dashboard</a>
                 </div>
-
-                <div class="row">
-                </div>
-
 
             </div>
             <!-- /.container-fluid -->

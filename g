@@ -1,0 +1,91 @@
+[33mcommit 8ef969528850647fe88691cc99055c5bb1e0856d[m[33m ([m[1;36mHEAD -> [m[1;32medit[m[33m)[m
+Author: mateuszmarc <mmarckiewicz@gmail.com>
+Date:   Sat Mar 16 00:21:38 2024 +0000
+
+    Remove empty div html tag from user-edit-form.jsp file
+
+[33mcommit 6b7b0e7f4fa930bc1fbaf5328ac351f0a4ec16e1[m
+Author: mateuszmarc <mmarckiewicz@gmail.com>
+Date:   Sat Mar 16 00:19:24 2024 +0000
+
+    Change name of edit-user.jsp to edit-user-form.jsp file.
+    Remove empty div tag from edit-user-from.jsp file.
+
+[33mcommit 0d935795faff3962e2053774459403fa4f008224[m
+Author: mateuszmarc <mmarckiewicz@gmail.com>
+Date:   Sat Mar 16 00:01:38 2024 +0000
+
+    Update UserDao class:
+      -Update update method
+      -Move string validation logs to the InputValidator class
+    Update InputValidator class:
+      -Add Logger static field to log if the falidated string is valid.
+    Create Edit servlet.
+    Create PageNotFound servlet.
+    Create 404.jsp file.
+    Update add-user-form.jsp file.
+    Create edit-user.jsp form.
+    Add hrefs to SB ADMIN and to Dashboard elements.
+
+[33mcommit 544f5099ce48e925c690b9bf5e2875e34789cb7d[m[33m ([m[1;31morigin/readAll[m[33m, [m[1;32mreadAll[m[33m)[m
+Author: mateuszmarc <mmarckiewicz@gmail.com>
+Date:   Fri Mar 15 18:01:45 2024 +0000
+
+    add show, edit and delete  buttons with hrefs to Action column in list of users table
+
+[33mcommit 70c5887ac97dd660a2a1d908a982d81b39f64a6f[m
+Author: mateuszmarc <mmarckiewicz@gmail.com>
+Date:   Fri Mar 15 13:37:49 2024 +0000
+
+    change directory name conatining servlets from create to servlets
+
+[33mcommit 27963491849a2ff94a65f9f6c57e27e60129aa13[m
+Author: mateuszmarc <mmarckiewicz@gmail.com>
+Date:   Fri Mar 15 13:18:08 2024 +0000
+
+    Create ReadAllServlet.
+    Update Create servlet:
+    -Update doGet method:
+      - update contidional statement to check validInput value.
+    -Update doPost method
+      - update contitional statement to sendRedirect with input parameter also when user != null.
+    Update add-user-form.jsp:
+    - add contidional statement to theck both scenarios: when isUserAdded attribute is true and false.
+    Update list.jsp to add main logic of displaying user fields in table.
+
+[33mcommit cb35ce441b003e9316805afd848623617bbf9dc1[m[33m ([m[1;31morigin/develop[m[33m, [m[1;31morigin/create[m[33m, [m[1;32mdevelop[m[33m, [m[1;32mcreate[m[33m)[m
+Author: mateuszmarc <mmarckiewicz@gmail.com>
+Date:   Thu Mar 14 23:57:42 2024 +0000
+
+    Add btn-success button to alert-success div with hyperlink to list of users.
+
+[33mcommit 6a0d6eb1ef3f211ae71548806f0dedb7d52502df[m
+Author: mateuszmarc <mmarckiewicz@gmail.com>
+Date:   Thu Mar 14 23:35:24 2024 +0000
+
+    Create servlet Create.
+    Update getInstance method in DBUtil class (envContext.lookup).
+    Update UserDao class:
+    - Add User field validaiton regular expressions.
+    -Implement InputValidator validateString method to validate User data fields.
+    Create InputValidator class.
+    Configure web.xml class for starting servlet.
+    Add bootstap files.
+    Add footer.jsp, topbar.jsp, add-user-form.jsp, list.jsp files.
+
+[33mcommit 40ede93c6b2882017cd4383fd36160bd0396cf8b[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: mateuszmarc <mmarckiewicz@gmail.com>
+Date:   Wed Mar 13 22:26:18 2024 +0000
+
+    Update file pom.xml with adding needed dependences.
+    Create User class along with UserDao class.
+    Create database management class DbUtil.
+    Add log4j2.xml for logging purposes.
+    Add context.xml file to setup database connection.
+    Create web.xml file.
+
+[33mcommit 5d721c5f94047c05b9b0efaf7889d2c7fed3545e[m
+Author: mateuszmarc <mmarckiewicz@gmail.com>
+Date:   Wed Mar 13 21:38:02 2024 +0000
+
+    first commit
