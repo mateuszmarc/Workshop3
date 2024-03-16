@@ -36,7 +36,7 @@ public class Edit extends HttpServlet {
         req.setAttribute("user", user);
         req.setAttribute("passwordRequirement", PASSWORD_VALIDATION_INFORMATION);
         req.setAttribute("usernameRequirement", USERNAME_VALIDATION_INFORMATION);
-        getServletContext().getRequestDispatcher("/users/edit-user.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/users/edit-user-form.jsp").forward(req, resp);
 
     }
 
@@ -57,6 +57,6 @@ public class Edit extends HttpServlet {
             User notUpdatedUser = userDao.read(userId);
             req.setAttribute("user", notUpdatedUser);
         }
-        getServletContext().getRequestDispatcher("/users/edit-user.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/users/edit-user-form.jsp").forward(req, resp);
     }
 }
