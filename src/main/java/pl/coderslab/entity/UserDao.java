@@ -123,17 +123,22 @@ public class UserDao {
         return isRowUpdated;
     }
 
-    public void delete(int userId) {
+    public boolean delete(int userId) {
+        boolean isDeleted = false;
+
         try (Connection connection = DbUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_QUERY)) {
             preparedStatement.setInt(1, userId);
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
                 log.info("There is no user record having id = " + userId);
+            } else {
+                isDeleted = true;
             }
             log.info(affectedRows + " rows affected");
         } catch (SQLException e) {
             log.info(e.getMessage());
         }
+        return isDeleted;
     }
 
     public List<User> findAll() {
