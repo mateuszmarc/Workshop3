@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.coderslab.entity.User;
 import pl.coderslab.entity.UserDao;
+import pl.coderslab.service.InputValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,12 +25,8 @@ public class ReadAll extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int numberOfUsers = userDao.countAll();
         int numberOfPages = (int) Math.ceil((double) numberOfUsers / RECORD_NUMBER_BY_PAGE);
-        Integer currentPage = null;
+        Integer currentPage = InputValidator.parseInteger(req.getParameter("page"));
         int offset = 0;
-        try {
-            currentPage = Integer.parseInt(req.getParameter("page"));
-        } catch (NumberFormatException e) {
-        }
 
         if (currentPage == null) {
             req.setAttribute("pageIndex", STARTING_PAGE);

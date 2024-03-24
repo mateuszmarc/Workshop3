@@ -15,9 +15,6 @@ import java.util.List;
 
 
 public class UserDao {
-    public static final String EMAIL_VALIDATION_REGEX = "[_a-zA-z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}";
-    public static final String PASSWORD_VALIDATION_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
-    public static final String USERNAME_VALIDATION_REGEX = "^[a-zA-Z0-9](_(?!(\\.|_))|\\.(?!(_|\\.))|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$";
     public static final Logger log = LogManager.getLogger(UserDao.class);
     public static final String CREATE_USER_QUERY = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
     public static final String UPDATE_USER_QUERY = "UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?";
@@ -31,14 +28,7 @@ public class UserDao {
         String username = user.getUsername();
         String email = user.getEmail();
         String plainPassword = user.getPassword();
-        if (
-                username == null
-                        || !InputValidator.validateString(username, USERNAME_VALIDATION_REGEX)
-                        || email == null
-                        || !InputValidator.validateString(email, EMAIL_VALIDATION_REGEX)
-                        || plainPassword == null
-                        || !InputValidator.validateString(plainPassword, PASSWORD_VALIDATION_REGEX)
-        ) {
+        if (!InputValidator.validateUser(username, email, plainPassword)) {
             log.info("Incorrect values entered");
             return null;
         }
@@ -74,7 +64,7 @@ public class UserDao {
         } catch (SQLException e) {
             log.info(e.getMessage());
         }
-        log.info("There was no user with given id = " + userId);
+        log.info("Reading user with passed id unsuccessful. There is no user with id= " + userId);
         return null;
     }
 
@@ -86,17 +76,11 @@ public class UserDao {
         int id = user.getId();
         String username = user.getUsername();
         String email = user.getEmail();
-        String password = user.getPassword();
+        String unhashedPassword = user.getPassword();
         int updatedRows = 0;
         boolean isRowUpdated = false;
 
-        if (
-                username == null
-                        || !InputValidator.validateString(username, USERNAME_VALIDATION_REGEX)
-                        || email == null
-                        || !InputValidator.validateString(email, EMAIL_VALIDATION_REGEX)
-                        || password == null
-                        || !InputValidator.validateString(password, PASSWORD_VALIDATION_REGEX)) {
+        if ((!InputValidator.validateUser(username, email, unhashedPassword)) ) {
             log.info("Invalid data provided for update");
             log.info(updatedRows + " rows updated");
             return false;
@@ -105,14 +89,14 @@ public class UserDao {
         try (Connection connection = DbUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_QUERY)) {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, email);
-            String hashedPassword = hashPassword(password);
+            String hashedPassword = hashPassword(unhashedPassword);
             preparedStatement.setString(3, hashedPassword);
             preparedStatement.setInt(4, id);
 
             updatedRows = preparedStatement.executeUpdate();
 
             if (updatedRows == 0) {
-                log.info("There was no record to update that has id = " + id);
+                log.info("Attempt to edit user unsuccessful. There is no user with id= " + id);
             } else {
                 log.info(updatedRows + " rows updated");
                 isRowUpdated = true;
@@ -130,7 +114,7 @@ public class UserDao {
             preparedStatement.setInt(1, userId);
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
-                log.info("There is no user record having id = " + userId);
+                log.info("Deletion of user unsuccessful. There is no user with id= " + userId);
             } else {
                 isDeleted = true;
             }

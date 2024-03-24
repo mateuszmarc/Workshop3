@@ -33,32 +33,7 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/users/list">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
-            </div>
-            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
-        </a>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-            <a class="nav-link" href="${pageContext.request.contextPath}/users/list">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-
-    </ul>
+    <%@include file="sidebar.jsp" %>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -75,11 +50,7 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">UsersCRUD</h1>
-                    <a href="${pageContext.request.contextPath}/users/add" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                            class="fas fa-download fa-sm text-white-50"></i> Dodaj użytkownika</a>
-                </div>
+                <%@include file="page-heading.jsp" %>
 
                 <!-- Content Row -->
                 <div class="card shadow mb-4">
@@ -87,22 +58,7 @@
                 </div>
                 <c:choose>
                     <c:when test="${isDeleted == false}">
-                        <div class="alert alert-warning" role="alert">
-                            <strong>Niepowadzenie!</strong> Nie ma użytkownika z podanym id.
-
-                            <a href="${pageContext.request.contextPath}/users/list">
-                                <div>
-                                    <button type="button" class="btn btn-primary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                             class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                  d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"></path>
-                                        </svg>
-                                        Wróć
-                                    </button>
-                                </div>
-                            </a>
-                        </div>
+                        <%@include file="no-user-with-id-information.jsp" %>
                     </c:when>
                     <c:otherwise>
                         <div class="alert alert-success" role="alert">
@@ -136,9 +92,6 @@
     <!-- End of Content Wrapper -->
 
 </div>
-
-
-
 
 </body>
 

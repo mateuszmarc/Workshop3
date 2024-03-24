@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.coderslab.entity.User;
 import pl.coderslab.entity.UserDao;
+import pl.coderslab.service.InputValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,11 +23,8 @@ public class Edit extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Integer userIdToEdit = null;
-        try {
-            userIdToEdit = Integer.parseInt(req.getParameter("id"));
-            log.info(userIdToEdit);
-        } catch (NumberFormatException ignored) {
+        Integer userIdToEdit = InputValidator.parseInteger(req.getParameter("id"));
+        if (userIdToEdit == null) {
             resp.sendRedirect("/users/pageNotFound");
             return;
         }
