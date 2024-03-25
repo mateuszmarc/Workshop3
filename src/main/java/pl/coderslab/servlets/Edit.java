@@ -41,9 +41,9 @@ public class Edit extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int userId = Integer.parseInt(req.getParameter("id"));
-        String newUsername = req.getParameter("newUsername");
-        String newEmail = req.getParameter("newEmail");
-        String newPassword = req.getParameter("newPassword");
+        String newUsername = req.getParameter("username");
+        String newEmail = req.getParameter("email");
+        String newPassword = req.getParameter("password");
         User updatedUser = new User(newUsername, newEmail, newPassword);
         updatedUser.setId(userId);
         log.info("After update " + updatedUser);

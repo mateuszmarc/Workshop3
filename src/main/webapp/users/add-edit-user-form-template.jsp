@@ -3,7 +3,7 @@
 
 <div class="form-group">
     <label for="username">Nazwa</label><br>
-    <input id="username" class="form-control form-control-user " type="text" name="newUsername"
+    <input id="username" class="form-control form-control-user " type="text" name="username"
            required value="${user.username}">
     <div>
         ${usernameRequirement}
@@ -11,14 +11,14 @@
 </div>
 <div class="form-group">
     <label for="email">Email</label><br>
-    <input id="email" class="form-control form-control-user" type="text" name="newEmail"
+    <input id="email" class="form-control form-control-user" type="text" name="email"
            required value="${user.email}">
 </div>
 <div class="form-group">
     <label for="password">Hasło</label><br>
     <input id="password" class="form-control form-control-user" type="Password"
            id="password"
-           name="newPassword" required>
+           name="password" required>
     <div>
         ${passwordRequirement}
     </div>

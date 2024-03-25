@@ -179,7 +179,7 @@
                                                     <c:otherwise>
                                                         <div class="dataTables_info" id="dataTable_info" role="status"
                                                              aria-live="polite">
-                                                            Showing ${(pageIndex - 1) * recordNumberBYPage}
+                                                            Showing ${(pageIndex - 1) * recordNumberByPage}
                                                             to ${pageIndex * recordNumberByPage} of ${numberOfUsers}
                                                             entries
                                                         </div>
