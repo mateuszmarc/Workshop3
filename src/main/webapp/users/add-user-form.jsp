@@ -52,7 +52,7 @@
                 <!-- Content Row -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Edytuj użytkownika</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Dodaj użytkownika</h6>
                     </div>
                     <div class="card-body">
                         <c:choose>
@@ -60,7 +60,18 @@
                                 <%@include file="user-creation-edition-failure-information.jsp" %>
                             </c:when>
                             <c:when test="${isUserAdded == true}">
-                                <%@include file="user-creation-edition-success-information.jsp" %>
+                                <div class="alert alert-success" role="alert">
+                                    <strong>Sukces!</strong> Użytkownik dodany pomyślnie
+                                    <div>
+                                        <a href="${pageContext.request.contextPath}/users/list"
+                                           class="btn btn-success">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                            <span class="text">Zobacz listę użytkowników</span>
+                                        </a>
+                                    </div>
+                                </div>
                             </c:when>
                         </c:choose>
                         <form method="post" action="${pageContext.request.contextPath}/users/add">
