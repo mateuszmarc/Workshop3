@@ -25,7 +25,7 @@ public class ReadAll extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int numberOfUsers = userDao.countAll();
         int numberOfPages = (int) Math.ceil((double) numberOfUsers / RECORD_NUMBER_BY_PAGE);
-        Integer currentPage = InputValidator.parseInteger(req.getParameter("page"));
+        Integer currentPage = InputValidator.parseInteger(req.getParameter("pageIndex"));
         int offset = 0;
 
         if (currentPage == null) {

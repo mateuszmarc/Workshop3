@@ -196,7 +196,7 @@
                                                     <c:when test="${pageIndex > 1}">
                                                         <li class="paginate_button page-item previous"
                                                             id="dataTable_previous"><a
-                                                                href="${pageContext.request.contextPath}/users/list?page=${pageIndex - 1}"
+                                                                href="${pageContext.request.contextPath}/users/list?pageIndex=${pageIndex - 1}"
                                                                 aria-controls="dataTable"
                                                                 data-dt-idx="0" tabindex="0"
                                                                 class="page-link">Previous</a>
@@ -214,14 +214,14 @@
                                                         <c:choose>
                                                             <c:when test="${pageIndex == number}">
                                                                 <li class="paginate_button page-item active">
-                                                                    <a href="${pageContext.request.contextPath}/users/list?page=${number}"
+                                                                    <a href="${pageContext.request.contextPath}/users/list?pageIndex=${number}"
                                                                        aria-controls="dataTable" data-dt-idx="${number}"
                                                                        tabindex="0"
                                                                        class="page-link">${number}</a></li>
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <li class="paginate_button page-item">
-                                                                    <a href="${pageContext.request.contextPath}/users/list?page=${number}"
+                                                                    <a href="${pageContext.request.contextPath}/users/list?pageIndex=${number}"
                                                                        aria-controls="dataTable" data-dt-idx="${number}"
                                                                        tabindex="0"
                                                                        class="page-link">${number}</a></li>
@@ -235,7 +235,7 @@
                                                     <c:when test="${pageIndex < numberOfPages}">
                                                         <li class="page-item">
                                                             <a class="page-link"
-                                                               href="${pageContext.request.contextPath}/users/list?page=${pageIndex + 1}">Next</a>
+                                                               href="${pageContext.request.contextPath}/users/list?pageIndex=${pageIndex + 1}">Next</a>
                                                         </li>
                                                     </c:when>
                                                     <c:otherwise>
