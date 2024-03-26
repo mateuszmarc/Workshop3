@@ -2,17 +2,17 @@
 
 ## Overview 
 This simple web application allows admin to: 
-* [List all users](#read-all-)
-* [Create users](#create-)
+* [List all users](#read-all)
+* [Create users](#create)
 * [Edit existing users ](#edit)
-* [Display user's details](#read-)
+* [Display user's details](#read)
 * [Delete users](#delete)
 
-## Main Contents 
-* [Used technologies](#used-technologies-)
-* [How to use](#how-to-use-locally)
+## Main Content 
+* [Used technologies](#used-technologies)
+* [How to use locally](#how-to-use-locally)
 * [What application does and how does it look in the code?](#what-application-does-and-how-does-it-look-in-the-code)
-## Used technologies 
+## Used technologies
 Project was built based on Model view controller design pattern using Maven.
 Model layer is implemented on Data Object Access design pattern that communicates with database.
 Server is built using Tomcat, which also manages MySql database connection. 
@@ -47,7 +47,7 @@ in _installation_ directory - it will create database table that will work prope
 ## What application does and how does it look in the code?
 Every action to perform uses particular Model methods that are used in Controller layer that passes all needed data to View layer.
  
-# READ ALL 
+# READ ALL
 This the welcome page of my application. It lists all users from our database:
 
 ![readAll.png](src/screenchots/readAll.png)
@@ -78,7 +78,7 @@ It recognises the first as well as the last page displayed and disables "Previou
 It gives also information which records are currently displayed (this information is calculated by current page index and `RECORD_NUMBER_BY_PAGE`)
 
 
-### CREATE 
+### CREATE
 #### Model-View-Controller implementation:
 * **Model layer methods used**: create method from UserDao class and helper InputValidator class.
 * **View layer**: add-user-form.jsp
@@ -213,7 +213,7 @@ It results with such view:
 
 ![userDeletedSuccess.png](src/screenchots/userDeletedSuccess.png)
 
-### READ 
+### READ
 #### Model-View-Controller implementation:
 * **Model layer methods used**: read method and createUserFromResultSet from UserDao class 
 * **View layer**: show.jsp
