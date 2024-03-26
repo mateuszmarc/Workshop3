@@ -40,8 +40,12 @@ Servlets located in `servlets` directory are responsible for passing needed data
 JSTL library to get access to passed data. 
 
 ## How to use locally
-First thing to do is to create MySql database and users table - Please run **create_database.sql** dump file located 
+1. First thing to do is to create MySql database and users table - Use **workshop3.sql** dump file located 
 in _installation_ directory - it will create database table that will work properly in our project. 
+2. Then fork this repository and clone it locally. 
+3. Build Tomcat server
+4. Configure context.xml file : update database name, user and password credentials as well as database url 
+5. Run Tomcat server - Now you are ready to go. 
 
 
 ## What application does and how does it look in the code?
@@ -50,7 +54,7 @@ Every action to perform uses particular Model methods that are used in Controlle
 # READ ALL
 This the welcome page of my application. It lists all users from our database:
 
-![readAll.png](src/screenchots/readAll.png)
+![readAll.png](src/screenshots/readAll.png)
 
 #### Model-View-Controller implementation:
 * **Model layer method used**: findUsersBasedOnOffsetAndLimit and countAll from UserDao class and private method createUsersFromResultSet
@@ -81,14 +85,14 @@ It gives also information which records are currently displayed (this informatio
 ### CREATE
 #### Model-View-Controller implementation:
 * **Model layer methods used**: create method from UserDao class and helper InputValidator class.
-* **View layer**: add-user-form.jsp
+* **View layer**: add-user.jsp
 * **Controller layer**: Create servlet class.   
 
 
 #### How does it work?
 Every input has requirements to get positively validated:
 
-![addUser.png](src/screenchots/addUser.png)
+![addUser.png](src/screenshots/addUser.png)
 
 InputValidator validates input username, email and password:
 * **username** requirements from regex: 
@@ -123,7 +127,7 @@ Based on its value, different views are displayed (flow-control is implemented i
 * If `isUserAdded` is null add above user form will get displayed. 
 * If `isUserAdded` is set to "false" it means either that data provided is invalid or provided e-mail is already assigned to other user:
 
-![incorrectInputCreateForm.png](src/screenchots/incorrectInputCreateForm.png)
+![incorrectInputCreateForm.png](src/screenshots/incorrectInputCreateForm.png)
 
 If validation returns boolean value _true_ then Connection to database is created along with PreparedStatement.
 Before new record added then password is hashed using **Bcrypt** class and its method **hashpw**.
@@ -134,13 +138,13 @@ Then again doPost method checks if returned value is valid instance of User clas
 Based on that parameter, doGet method sets `isUserAdded` to boolean _true_ that will determine what will be displayed 
 in add-user-form.jsp file: 
 
-![userAddedSuccess.png](src/screenchots/userAddedSuccess.png)
+![userAddedSuccess.png](src/screenshots/userAddedSuccess.png)
 
 
 ### EDIT
 #### Model-View-Controller implementation:
 * **Model layer methods used**: update method from UserDao class and helper InputValidator class.
-* **View layer**: edit-user-form.jsp
+* **View layer**: edit-user.jsp
 * **Controller layer**: Edit servlet class.   
 
 #### How does it work?
@@ -150,13 +154,13 @@ robust:
 If user enters url manually without any `id` parameter specified, then doGet method will redirect to 
 pageNotFound servlet: 
 
-![pageNotFound.png](src/screenchots/pageNotFound.png)
+![pageNotFound.png](src/screenshots/pageNotFound.png)
 
 If admin user enters url with id parameter value that is not in database then read method from UserDao class will
 return null which is going to be passed as `user` attribute for edit-user-form.jsp.
 Then such view will be displayed:
 
-![noUserWithGivenId.png](src/screenchots/noUserWithGivenId.png)
+![noUserWithGivenId.png](src/screenshots/noUserWithGivenId.png)
 
 To edit user we click edit button that is displayed along with show and delete buttons in list.jsp file. 
 Every edit button is an anchor tag that sets url `id` parameter taken from displayed record.
@@ -164,7 +168,7 @@ This `id` parameter is taken by doGet method of Edit servlet.
 Then given id is used in read method from UserDao class that creates User instance based on retrieved data.
 User instance is passed to the view as attribute of which data fields will populate(except password - it needs to be reentered) edit-user-form.jsp fields:
 
-![editUser.png](src/screenchots/editUser.png)
+![editUser.png](src/screenshots/editUser.png)
 
 After all input fields got some data entered and edit button clicked then all data is passed to doPost method.
 Then passed `username`, `email`, `password` parameters are used to instantiate new User object that will be passed as 
@@ -173,15 +177,15 @@ User object meet requirements. If they don't then update method returns false wh
 `isUserUpdated` to _false_ and passing attribute `user` as user with old data(to repopulate the edit input fields so user can try again entering correct values this time). 
 It will result with such view displayed: 
 
-![incorrectInputEditForm.png](src/screenchots/incorrectInputEditForm.png)
+![incorrectInputEditForm.png](src/screenshots/incorrectInputEditForm.png)
 
 If InputValidator returns _true_ then Connection to database is created along with PreparedStatement object. 
 If provided email is used in other record then again above screen will be displayed (`isUserUpdated` will be set again to _false_).
 However, if database record gets updated, then `isUserUpdated` will be set to true and `user` attribute will be set to 
 updated instance of User class (with newly entered data). 
-These attributes are again passed to edit-user-form.jsp file which will result in such view displayed: 
+These attributes are again passed to edit-user.jsp file which will result in such view displayed: 
 
-![userEditedSuccess.png](src/screenchots/userEditedSuccess.png)
+![userEditedSuccess.png](src/screenshots/userEditedSuccess.png)
 
 
 ### DELETE
@@ -196,14 +200,14 @@ robust:
 
 If admin user enters invalid `id` parameter in url then admin gets redirected to pageNotfound view: 
 
-![pageNotFound.png](src/screenchots/pageNotFound.png)
+![pageNotFound.png](src/screenshots/pageNotFound.png)
 
 If admin enters `id` parameter in url that is not in database then there is no user to delete. 
 It means that delete method from UserDao class will return _false_.
 It will set attribute `isDeleted` to _false_. It is passed to delete.jsp file. It will result with such 
 view: 
 
-![noUserWithIdToDelete.png](src/screenchots/noUserWithIdToDelete.png)
+![noUserWithIdToDelete.png](src/screenshots/noUserWithIdToDelete.png)
 
 If admin clicks delete button associated with particular record in list.jsp then valid id is passed to 
 delete method of UserDao class.
@@ -211,7 +215,7 @@ It means that delete method from UserDao class will return _true_.
 If deletion is performed successfully then `isDeleted` attribute is set to _true_ that is passed to delete.jsp view.
 It results with such view: 
 
-![userDeletedSuccess.png](src/screenchots/userDeletedSuccess.png)
+![userDeletedSuccess.png](src/screenshots/userDeletedSuccess.png)
 
 ### READ
 #### Model-View-Controller implementation:
@@ -229,7 +233,7 @@ If admin enters url with `id` parameter that is not associated with any record i
 from userDao class will return _null_. This object is then set to `user` attribute and passed to show.jsp file. 
 Then based on value form `user` attribute following information will be displayed: 
 
-![noUserWithIdToDisplay.png](src/screenchots/noUserWithIdToDisplay.png)
+![noUserWithIdToDisplay.png](src/screenshots/noUserWithIdToDisplay.png)
 
 However, if user enters in url id, that exists in database then the user details will be displayed successfully. 
 
@@ -242,7 +246,7 @@ returned to doGet method from ShowUser servlet. Then this instance is set as an 
 passed to show.jsp file. 
 Data fields from User instance will populate table rows to display all data except password: 
 
-![userDetails.png](src/screenchots/userDetails.png)
+![userDetails.png](src/screenshots/userDetails.png)
 Again from this view we are able to edit or delete particular user. 
 
 ## Thoughts and future project extensions
