@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Page not found</title>
+    <title>SB Admin 2 - Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -30,7 +31,7 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-<%@include file="sidebar.jsp"%>
+    <%@include file="sidebar.jsp" %>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -47,26 +48,33 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">UsersCRUD</h1>
-                    <a href="${pageContext.request.contextPath}/users/list"
-                       class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                            class="fas fa-download fa-sm text-white-50"></i> Lista użytkowników</a>
-                </div>
-
+                <%@include file="page-heading.jsp" %>
                 <!-- Content Row -->
-
-            </div>
-            <div class="container-fluid">
-
-                <!-- 404 Error Text -->
-                <div class="text-center">
-                    <div class="error mx-auto" data-text="404">404</div>
-                    <p class="lead text-gray-800 mb-5">Page Not Found</p>
-                    <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
-                    <a href="${pageContext.request.contextPath}/users/list">← Back to Dashboard</a>
+                <div class="card shadow mb-4">
+                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Edytuj użytkownika</h6>
+                     </div>
+                        <div class="card-body">
+                            <c:choose>
+                                <c:when test="${isUserUpdated == false}">
+                                    <%@include file="user-creation-edition-failure-information.jsp" %>
+                                </c:when>
+                                <c:when test="${isUserUpdated == true}">
+                                    <%@include file="user-creation-edition-success-information.jsp" %>
+                                </c:when>
+                            </c:choose>
+                            <c:choose>
+                            <c:when test="${user == null}">
+                                <%@include file="no-user-with-id-information.jsp" %>
+                            </c:when>
+                            <c:otherwise>
+                            <form method="post" action="${pageContext.request.contextPath}/users/edit?id=${user.id}">
+                                <%@include file="add-edit-user-form-template.jsp" %>
+                            </form>
+                        </div>
+                    </c:otherwise>
+                    </c:choose>
                 </div>
-
             </div>
             <!-- /.container-fluid -->
 

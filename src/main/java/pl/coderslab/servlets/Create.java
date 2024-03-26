@@ -29,7 +29,7 @@ public class Create extends HttpServlet {
         }
         req.setAttribute("usernameRequirement", USERNAME_VALIDATION_INFORMATION);
         req.setAttribute("passwordRequirement", PASSWORD_VALIDATION_INFORMATION);
-        getServletContext().getRequestDispatcher("/users/add-user-form.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/users/add-user.jsp").forward(req, resp);
     }
 
     @Override

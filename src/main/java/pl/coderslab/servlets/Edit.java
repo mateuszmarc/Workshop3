@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.coderslab.entity.User;
 import pl.coderslab.entity.UserDao;
+import pl.coderslab.service.InputValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,11 +23,8 @@ public class Edit extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Integer userIdToEdit = null;
-        try {
-            userIdToEdit = Integer.parseInt(req.getParameter("id"));
-            log.info(userIdToEdit);
-        } catch (NumberFormatException ignored) {
+        Integer userIdToEdit = InputValidator.parseInteger(req.getParameter("id"));
+        if (userIdToEdit == null) {
             resp.sendRedirect("/users/pageNotFound");
             return;
         }
@@ -36,16 +34,16 @@ public class Edit extends HttpServlet {
         req.setAttribute("user", user);
         req.setAttribute("passwordRequirement", PASSWORD_VALIDATION_INFORMATION);
         req.setAttribute("usernameRequirement", USERNAME_VALIDATION_INFORMATION);
-        getServletContext().getRequestDispatcher("/users/edit-user-form.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/users/edit-user.jsp").forward(req, resp);
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int userId = Integer.parseInt(req.getParameter("id"));
-        String newUsername = req.getParameter("newUsername");
-        String newEmail = req.getParameter("newEmail");
-        String newPassword = req.getParameter("newPassword");
+        String newUsername = req.getParameter("username");
+        String newEmail = req.getParameter("email");
+        String newPassword = req.getParameter("password");
         User updatedUser = new User(newUsername, newEmail, newPassword);
         updatedUser.setId(userId);
         log.info("After update " + updatedUser);
@@ -57,6 +55,6 @@ public class Edit extends HttpServlet {
             User notUpdatedUser = userDao.read(userId);
             req.setAttribute("user", notUpdatedUser);
         }
-        getServletContext().getRequestDispatcher("/users/edit-user-form.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/users/edit-user.jsp").forward(req, resp);
     }
 }
