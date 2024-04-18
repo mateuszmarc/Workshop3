@@ -16,10 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     errorInfoDiv.setAttribute("role", "alert");
     const pTag = document.createElement("p");
     errorInfoDiv.appendChild(pTag);
-    const strongElement = document.createElement("strong");
-    strongElement.innerText = "Niepowodzenie";
-    pTag.appendChild(strongElement);
-    pTag.innerText = "Wpisane dane nie spełniają wymagań lub podany email jest już przypisany do innego użytkownika."
+    pTag.innerHTML = "<strong>Niepowodzenie!</strong> Wpisanie dane nie spełniają wymagań"
     errorInfoDiv.classList.add("d-none");
     form.prepend(errorInfoDiv);
 
