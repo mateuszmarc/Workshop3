@@ -90,6 +90,6 @@
 
 </div>
 <!-- End of Page Wrapper -->
+<script src="../theme/js/edit-and-add-user.js"></script>
 </body>
-
 </html>

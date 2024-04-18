@@ -18,8 +18,6 @@ public class Edit extends HttpServlet {
     public static final Logger log = LogManager.getLogger(Edit.class);
 
     public static UserDao userDao = new UserDao();
-    public static final String USERNAME_VALIDATION_INFORMATION = "Musi składać się z co najmniej 8 symboli";
-    public static final String PASSWORD_VALIDATION_INFORMATION = "Musi składać się z co najmniej 8 symboli, posiadać co najmniej jedną dużą literę, co najmniej jedną małą literę, co najmniej jedną cyfrę oraz co najmniej jednen specjalny symbol";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,8 +30,6 @@ public class Edit extends HttpServlet {
         User user = userDao.read(userIdToEdit);
         log.info(user);
         req.setAttribute("user", user);
-        req.setAttribute("passwordRequirement", PASSWORD_VALIDATION_INFORMATION);
-        req.setAttribute("usernameRequirement", USERNAME_VALIDATION_INFORMATION);
         getServletContext().getRequestDispatcher("/users/edit-user.jsp").forward(req, resp);
 
     }

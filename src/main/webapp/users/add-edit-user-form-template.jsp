@@ -5,9 +5,6 @@
     <label for="username">Nazwa</label><br>
     <input id="username" class="form-control form-control-user " type="text" name="username"
            required value="${user.username}">
-    <div>
-        ${usernameRequirement}
-    </div>
 </div>
 <div class="form-group">
     <label for="email">Email</label><br>
@@ -19,8 +16,5 @@
     <input id="password" class="form-control form-control-user" type="Password"
            id="password"
            name="password" required>
-    <div>
-        ${passwordRequirement}
-    </div>
 </div>
 <button class="btn btn-primary" type="submit">Zapisz</button>
