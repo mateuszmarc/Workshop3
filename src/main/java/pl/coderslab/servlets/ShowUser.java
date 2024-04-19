@@ -2,8 +2,8 @@ package pl.coderslab.servlets;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import pl.coderslab.entity.User;
-import pl.coderslab.entity.UserDao;
+import pl.coderslab.entity.model.User;
+import pl.coderslab.entity.dao.UserDao;
 import pl.coderslab.service.InputValidator;
 
 import javax.servlet.ServletException;
