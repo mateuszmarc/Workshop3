@@ -34,6 +34,7 @@
       <a href="#about-the-project">About The Project</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
+        <li><a href="#implementation">Implementation</a></li>
       </ul>
     </li>
     <li>
@@ -43,12 +44,21 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li>
+<a href="#usage">Usage
+      <ul>
+        <li><a href="#read-all">Read All</a></li>
+        <li><a href="#create">Create</a></li>
+        <li><a href="#edit">Edit</a></li>
+        <li><a href="#delete">Delete</a></li>
+        <li><a href="#read">Read</a></li>
+      </ul>
+</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Thoughts and future extensions</a></li>
+    <li><a href="#thoughts-and-future-extensions">Thoughts and future extensions</a></li>
   </ol>
 </details>
 
@@ -60,12 +70,6 @@
 ![readAll.png](src/screenshots/readAll.png)
 
 As I said before it is just simple users management app created to practise Model-View-Controller design.
-App allows admin to:
-* [List all users](#read-all)
-* [Create users](#create)
-* [Edit existing users ](#edit)
-* [Display user's details](#read)
-* [Delete users](#delete)
 
 ### Built With
 
