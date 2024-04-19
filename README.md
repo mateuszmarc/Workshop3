@@ -165,7 +165,7 @@ InputValidator validates input username, email and password:
     * can contain ',' or '_' but they cannot be typed as two in the row for example: "__" or "._" or "_." or ".." - username will be invalid with such combination.
     * lat character also has to be alphanumeric
 * ```email``` Please see below regex for email:
-    * "[_a-zA-z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}"
+    * ```[_a-zA-z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}```
 * ```password``` requirements:
     * Minimum eight characters
     * at lead one upper case character
