@@ -2,7 +2,7 @@ package pl.coderslab.servlets;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import pl.coderslab.entity.UserDao;
+import pl.coderslab.entity.dao.UserDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -2,8 +2,8 @@ package pl.coderslab.servlets;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import pl.coderslab.entity.User;
-import pl.coderslab.entity.UserDao;
+import pl.coderslab.entity.model.User;
+import pl.coderslab.entity.dao.UserDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,8 +17,6 @@ import java.io.IOException;
 public class Create extends HttpServlet {
     public static final Logger log = LogManager.getLogger(Create.class);
     public static final UserDao userDao = new UserDao();
-    public static final String USERNAME_VALIDATION_INFORMATION = "Musi składać się z co najmniej 8 symboli";
-    public static final String PASSWORD_VALIDATION_INFORMATION = "Musi składać się z co najmniej 8 symboli, posiadać co najmniej jedną dużą literę, co najmniej jedną małą literę, co najmniej jedną cyfrę oraz co najmniej jednen specjalny symbol";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String validInput = req.getParameter("input");
@@ -27,8 +25,6 @@ public class Create extends HttpServlet {
         } else if ("valid".equals(validInput)) {
             req.setAttribute("isUserAdded", true);
         }
-        req.setAttribute("usernameRequirement", USERNAME_VALIDATION_INFORMATION);
-        req.setAttribute("passwordRequirement", PASSWORD_VALIDATION_INFORMATION);
         getServletContext().getRequestDispatcher("/users/add-user.jsp").forward(req, resp);
     }
 

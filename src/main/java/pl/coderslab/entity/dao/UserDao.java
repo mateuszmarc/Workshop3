@@ -1,9 +1,10 @@
-package pl.coderslab.entity;
+package pl.coderslab.entity.dao;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import pl.coderslab.dbmanagement.DbUtil;
+import pl.coderslab.entity.model.User;
 import pl.coderslab.service.InputValidator;
 
 import java.sql.Connection;
