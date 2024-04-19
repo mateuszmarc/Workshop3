@@ -365,9 +365,9 @@ In the future, project would be easily extended with adding additional database 
 Every admin would have to go through login process in order to get access to CRUD options. This could be achieved using for example filter. 
 It would be also good to implement soft delete option including time of deletion, admin id that performed this as well as include additional columns in database that tracks last edit datetime and admin that edited particular user. 
 It would be also good to use any revertable hashing method to hash id that are passed as parameters to url, so they are not visible there. 
-And of course JavaScript scripts must be added to make this application more interactive. Once I get more knowledge, I will extend this project. Cheers!
-
+And of course more JavaScript can be added to make this application more interactive. Once I get more knowledge, I will extend this project. 
 Adding tests for application is what I will do next for this project.
+Cheers!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
