@@ -23,14 +23,14 @@ public class Edit extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer userIdToEdit = InputValidator.parseInteger(req.getParameter("id"));
         if (userIdToEdit == null) {
-            resp.sendRedirect("/users/pageNotFound");
+            resp.sendRedirect("/views/pageNotFound");
             return;
         }
 
         User user = userDao.read(userIdToEdit);
         log.info(user);
         req.setAttribute("user", user);
-        getServletContext().getRequestDispatcher("/users/edit-user.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/views/edit-user.jsp").forward(req, resp);
 
     }
 
@@ -51,6 +51,6 @@ public class Edit extends HttpServlet {
             User notUpdatedUser = userDao.read(userId);
             req.setAttribute("user", notUpdatedUser);
         }
-        getServletContext().getRequestDispatcher("/users/edit-user.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/views/edit-user.jsp").forward(req, resp);
     }
 }

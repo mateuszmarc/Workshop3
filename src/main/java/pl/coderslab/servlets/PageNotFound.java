@@ -11,6 +11,6 @@ import java.io.IOException;
 public class PageNotFound extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/users/404.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/views/404.jsp").forward(req, resp);
     }
 }

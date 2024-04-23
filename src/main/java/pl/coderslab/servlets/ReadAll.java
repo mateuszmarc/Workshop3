@@ -41,7 +41,7 @@ public class ReadAll extends HttpServlet {
         req.setAttribute("numberOfPages", numberOfPages);
         req.setAttribute("retrievedUsers", retrievedUsers);
 
-        getServletContext().getRequestDispatcher("/users/list.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/views/list.jsp").forward(req, resp);
 
     }
 }

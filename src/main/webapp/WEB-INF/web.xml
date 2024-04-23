@@ -5,6 +5,5 @@
          http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
     <welcome-file-list>
         <welcome-file>users/list</welcome-file>
-        <welcome-file>default.html</welcome-file>
     </welcome-file-list>
 </web-app>

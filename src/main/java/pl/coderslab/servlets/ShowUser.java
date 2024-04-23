@@ -30,6 +30,6 @@ public class ShowUser extends HttpServlet {
             readUser.setId(userIdToEdit);
             req.setAttribute("user", readUser);
         }
-        getServletContext().getRequestDispatcher("/users/show.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/views/show.jsp").forward(req, resp);
     }
 }

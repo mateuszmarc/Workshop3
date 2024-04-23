@@ -25,7 +25,7 @@ public class Create extends HttpServlet {
         } else if ("valid".equals(validInput)) {
             req.setAttribute("isUserAdded", true);
         }
-        getServletContext().getRequestDispatcher("/users/add-user.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/views/add-user.jsp").forward(req, resp);
     }
 
     @Override
@@ -37,10 +37,10 @@ public class Create extends HttpServlet {
         User addedUser = userDao.create(user);
         log.info(addedUser);
         if (addedUser == null) {
-            resp.sendRedirect("/users/add?input=invalid");
+            resp.sendRedirect("/views/add?input=invalid");
             return;
         }
-        resp.sendRedirect("/users/add?input=valid");
+        resp.sendRedirect("/views/add?input=valid");
 
     }
 }

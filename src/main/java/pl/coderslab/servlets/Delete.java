@@ -22,11 +22,11 @@ public class Delete extends HttpServlet {
             userIdToDelete = Integer.parseInt(req.getParameter("id"));
             log.info(userIdToDelete);
         } catch (NumberFormatException ignored) {
-            resp.sendRedirect("/users/pageNotFound");
+            resp.sendRedirect("/views/pageNotFound");
             return;
         }
         boolean isDeleted = userDao.delete(userIdToDelete);
         req.setAttribute("isDeleted", isDeleted);
-        getServletContext().getRequestDispatcher("/users/delete.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/views/delete.jsp").forward(req, resp);
     }
 }
